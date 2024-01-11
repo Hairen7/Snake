@@ -8,15 +8,24 @@ int main()
 {
 	cout << "Snake" "\n";
 
+	int fil;
+	int col;
+
+	cout << "Ingrese el numero de columnas: ";
+	cin >> col;
+
+	cout << "Ingrese el numero de filas: ";
+	cin >> fil; 
 
 
-	for (int i = 0; i < 10; i++)
+
+	for (int i = 0; i < fil; i++)
 	{
 
 
-		for (int j = 0; j < 10; j++)
+		for (int j = 0; j < col; j++)
 		{
-			if (i==0 || j == 0 || i==9 || j==9)
+			if (i==0 || j == 0 || i==fil-1 || j==col-1)
 			{
 				cout << "#"; 
 			}
