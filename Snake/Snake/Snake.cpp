@@ -3,6 +3,9 @@
 
 #include <iostream>
 using namespace std;
+#include <time.h>
+
+
 
 int main()
 {
@@ -10,6 +13,12 @@ int main()
 
 	int fil;
 	int col;
+	int food[2];
+	int head[2];
+	
+	
+	
+
 
 	cout << "Ingrese el numero de columnas: ";
 	cin >> col;
@@ -17,34 +26,43 @@ int main()
 	cout << "Ingrese el numero de filas: ";
 	cin >> fil; 
 
+	cout<<endl;
+	cout << endl;
 
+	srand(time(0));
+
+	head[0] = 1;
+	head[1] = 1;
+
+	food[0] = rand() % (fil-2) +1;
+	food[1] = rand() % (col-2) +1;
 
 	for (int i = 0; i < fil; i++)
 	{
-
-
 		for (int j = 0; j < col; j++)
 		{
-			if (i==0 || j == 0 || i==fil-1 || j==col-1)
+			if (i == 0 || j == 0 || i == fil - 1 || j == col - 1)
 			{
-				cout << "#"; 
+				cout << "#";
 			}
-			else 
+			else if (j == head[0] && i == head[1])
+			{
+				cout << "Q";
+			}
+			else if (j == food[0] && i == food[1])
+			{
+				cout << "n";
+			}
+			else
 			{
 				cout << ".";
-			}
-			
-		} 
-		cout << endl;
-		
-	}
-
-
-
-
-
+			}	
+		}
+		cout << endl;	
+	} 
 	return 0;
 }
+
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
 // Depurar programa: F5 o menú Depurar > Iniciar depuración
