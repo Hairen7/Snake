@@ -4,39 +4,63 @@
 #include <iostream>
 using namespace std;
 #include <time.h>
+#include <conio.h>
+#include <chrono>
+#include <thread>
 
 
+int fil;
+int col;
+int food[2];
+int head[2];
+char direction = 0;
+bool gameOver = false;
 
-int main()
+void Input()
 {
-	cout << "Snake" "\n";
+	if (_kbhit())
+	{
+		direction = _getch();
+	}
+}
 
-	int fil;
-	int col;
-	int food[2];
-	int head[2];
-	
-	
-	
-
-
-	cout << "Ingrese el numero de columnas: ";
-	cin >> col;
-
-	cout << "Ingrese el numero de filas: ";
-	cin >> fil; 
-
-	cout<<endl;
+void Logic()
+{
+	if (direction == 'd')
+	{
+		cout << "Derecha";
+		head[0]++;
+	}
+	else if (direction == 's')
+	{
+		cout << "Abajo";
+		head[1]++;
+	}
+	else if (direction == 'a')
+	{
+		cout << "Izquierda";
+		head[0]--;
+	}
+	else if (direction == 'w')
+	{
+		cout << "Arriba";
+		head[1]--;
+	}
+	cout << endl;
 	cout << endl;
 
-	srand(time(0));
 
-	head[0] = 1;
-	head[1] = 1;
 
-	food[0] = rand() % (fil-2) +1;
-	food[1] = rand() % (col-2) +1;
+	if (head[0] >= fil || head[0] < 0 || head[1] >= col || head[1] < 0)
+	{
+		gameOver = true;
+	}
+}
 
+void Draw()
+{
+	system("cls");
+	
 	for (int i = 0; i < fil; i++)
 	{
 		for (int j = 0; j < col; j++)
@@ -56,20 +80,47 @@ int main()
 			else
 			{
 				cout << ".";
-			}	
+			}
 		}
-		cout << endl;	
-	} 
-	return 0;
+		cout << endl;
+	}
+	this_thread::sleep_for(chrono::milliseconds(16));
 }
 
 
-// Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
-// Depurar programa: F5 o menú Depurar > Iniciar depuración
+int main()
+{
+	cout << "Snake" "\n";
+	cout << "Ingrese el numero de columnas: ";
+	cin >> col;
 
-// Sugerencias para primeros pasos: 1. Use la ventana del Explorador de soluciones para agregar y administrar archivos
-//   2. Use la ventana de Team Explorer para conectar con el control de código fuente
-//   3. Use la ventana de salida para ver la salida de compilación y otros mensajes
-//   4. Use la ventana Lista de errores para ver los errores
-//   5. Vaya a Proyecto > Agregar nuevo elemento para crear nuevos archivos de código, o a Proyecto > Agregar elemento existente para agregar archivos de código existentes al proyecto
-//   6. En el futuro, para volver a abrir este proyecto, vaya a Archivo > Abrir > Proyecto y seleccione el archivo .sln
+	cout << "Ingrese el numero de filas: ";
+	cin >> fil; 
+
+	cout<<endl;
+	cout << endl;
+
+	srand(time(0));
+
+	head[0] = 1;
+	head[1] = 1;
+
+	food[0] = rand() % (fil-2) +1;
+	food[1] = rand() % (col-2) +1;
+
+
+	while (!gameOver)
+	{
+
+		Input();
+
+		Logic();
+
+		Draw();
+
+	}
+
+	system("pause");
+	return 0;
+}
+
